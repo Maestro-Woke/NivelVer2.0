@@ -21,9 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.nivelver20.ui.theme.rememberAdaptiveDimensions
 import com.example.nivelver20.R
-
+import com.example.nivelver20.ui.theme.rememberAdaptiveDimensions
 
 @Composable
 fun MainScreen(
@@ -42,10 +41,10 @@ fun MainScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                Brush.verticalGradient(
+                Brush.radialGradient(
                     colors = listOf(
-                        Color(0xFF003D5B),
-                        Color(0xFF00516D)
+                        Color(0xFF0e5f63),
+                        Color(0xFF02214a)
                     )
                 )
             )
@@ -53,12 +52,14 @@ fun MainScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
                 .padding(horizontal = dimensions.horizontalPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            // Верхняя часть: NIVEL и FLUJO (не кликабельные)
+            // Верхняя часть: NIVEL и FLUJO
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -66,8 +67,8 @@ fun MainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.spaceBetweenButtons)
             ) {
-                // NIVEL Button (не кликабельна)
-                NonClickableButton(
+                // NIVEL Button
+                MenuButton(
                     text = uiState.nivel,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
@@ -75,11 +76,12 @@ fun MainScreen(
                             Color(0xFFFFE97D)
                         )
                     ),
+                    onClick = {},
                     dimensions = dimensions
                 )
 
-                // FLUJO Button (не кликабельна)
-                NonClickableButton(
+                // FLUJO Button
+                MenuButton(
                     text = uiState.flujo,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
@@ -87,6 +89,7 @@ fun MainScreen(
                             Color(0xFFFFB347)
                         )
                     ),
+                    onClick = {},
                     dimensions = dimensions
                 )
             }
@@ -94,15 +97,13 @@ fun MainScreen(
             // Центральная часть: Буква Ñ (ФОТО - изображение)
             Box(
                 modifier = Modifier
-                    .size(dimensions.letterNSize)
-                    .padding(
-                        top = dimensions.letterNTopPadding,
-                        bottom = dimensions.letterNBottomPadding
-                    ),
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(vertical = dimensions.spaceBetweenButtons),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = painterResource(id = R.drawable.espanol_logo),
                     contentDescription = "Letter Ñ",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Fit
@@ -115,48 +116,48 @@ fun MainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.spaceBetweenButtons)
             ) {
-                MainMenuButton(
-                    text = "VOCABULARIO",
+                MenuButton(
+                    text = uiState.vocabulario,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
-                            Color(0xFFD4E157),
-                            Color(0xFFFFEB99)
+                            Color(0xFFA0D47B),
+                            Color(0xFFE0CA71)
                         )
                     ),
                     onClick = onNavigateToVocabulario,
                     dimensions = dimensions
                 )
 
-                MainMenuButton(
-                    text = "GRAMMÁTICA",
+                MenuButton(
+                    text = uiState.grammatica,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
-                            Color(0xFF26C6DA),
-                            Color(0xFF80DEEA)
+                            Color(0xFF0097B2),
+                            Color(0xFF7ED957)
                         )
                     ),
                     onClick = onNavigateToGrammatica,
                     dimensions = dimensions
                 )
 
-                MainMenuButton(
-                    text = "AUDIO",
+                MenuButton(
+                    text = uiState.audio,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
-                            Color(0xFF4DD0E1),
-                            Color(0xFF80DEEA)
+                            Color(0xFF5DE0E6),
+                            Color(0xFF1C74CF)
                         )
                     ),
                     onClick = onNavigateToAudio,
                     dimensions = dimensions
                 )
 
-                MainMenuButton(
-                    text = "LECTURA",
+                MenuButton(
+                    text = uiState.lectura,
                     gradient = Brush.horizontalGradient(
                         colors = listOf(
-                            Color(0xFF9575CD),
-                            Color(0xFF81D4FA)
+                            Color(0xFFA985F0),
+                            Color(0xFF85EDFF)
                         )
                     ),
                     onClick = onNavigateToLectura,
@@ -164,63 +165,43 @@ fun MainScreen(
                 )
             }
 
-            // Нижняя часть: TEST и PERFIL
+            // Нижняя часть: TEST и PERFIL (50% на 50%)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = dimensions.verticalPadding),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                    .padding(
+                        top = dimensions.bottomButtonsTopPadding,
+                        bottom = dimensions.verticalPadding
+                    ),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceBetweenButtons)
             ) {
                 BottomButton(
-                    text = "TEST",
+                    text = uiState.TEST,
                     onClick = onNavigateToTest,
-                    dimensions = dimensions
+                    dimensions = dimensions,
+                    modifier = Modifier.weight(1f)
                 )
 
                 BottomButton(
-                    text = "PERFIL",
+                    text = uiState.PERFIL,
                     onClick = onNavigateToPerfil,
-                    dimensions = dimensions
+                    dimensions = dimensions,
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
     }
 }
 
-// Некликабельная кнопка для NIVEL и FLUJO
-@Composable
-private fun NonClickableButton(
-    text: String,
-    gradient: Brush,
-    dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(dimensions.buttonHeight)
-            .background(
-                brush = gradient,
-                shape = RoundedCornerShape(dimensions.buttonCornerRadius)
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            fontSize = dimensions.titleFontSize.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF2C3E50),
-            textAlign = TextAlign.Center
-        )
-    }
-}
+// Универсальная кнопка меню
 
-// Кнопка основного меню (кликабельная)
 @Composable
-private fun MainMenuButton(
+private fun MenuButton(
     text: String,
     gradient: Brush,
     onClick: () -> Unit,
-    dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions) {
+    dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions
+) {
     Button(
         onClick = onClick,
         modifier = Modifier
@@ -249,30 +230,46 @@ private fun MainMenuButton(
     }
 }
 
-// Нижние кнопки TEST и PERFIL
+// Нижние кнопки TEST и PERFIL (50% на 50%) с градиентной рамкой
+
 @Composable
 private fun BottomButton(
     text: String,
     onClick: () -> Unit,
-    dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .width(dimensions.bottomButtonWidth)
-            .height(dimensions.bottomButtonHeight),
-        shape = RoundedCornerShape(dimensions.buttonCornerRadius),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent
-        ),
-        border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFF4DD0E1)),
-        contentPadding = PaddingValues(0.dp)
+    dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .height(dimensions.bottomButtonHeight)
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color(0xFFA985F0),
+                        Color(0xFF85EDFF)
+                    )
+                ),
+                shape = RoundedCornerShape(dimensions.buttonCornerRadius)
+            )
     ) {
-        Text(
-            text = text,
-            fontSize = dimensions.bottomButtonFontSize.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFFFFE97D),
-            textAlign = TextAlign.Center
-        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(2.dp),
+            shape = RoundedCornerShape(dimensions.buttonCornerRadius),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF003D5B)
+            ),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Text(
+                text = text,
+                fontSize = dimensions.bottomButtonFontSize.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFFa3b944),
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }

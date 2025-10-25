@@ -16,5 +16,11 @@ class MainViewModel : ViewModel() {
 // UI State для главного экрана
 data class MainUiState(
     val nivel: String = "NIVEL",
-    val flujo: String = "FLUJO"
+    val flujo: String = "FLUJO",
+    val vocabulario: String = "VOCABULARIO",
+    val grammatica: String = "GRAMMATICA",
+    val audio: String = "AUDIO",
+    val lectura: String = "LECTURA",
+    val TEST: String = "TEST",
+    val PERFIL: String = "PERFIL"
 )

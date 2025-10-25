@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 // Data class для хранения адаптивных размеров
-
 data class AdaptiveDimensions(
     val screenWidth: Dp,
     val screenHeight: Dp,
@@ -31,6 +30,7 @@ data class AdaptiveDimensions(
     // Размеры для нижних кнопок
     val bottomButtonHeight: Dp,
     val bottomButtonWidth: Dp,
+    val bottomButtonsTopPadding: Dp,
 
     // Текст
     val titleFontSize: Float,
@@ -48,7 +48,6 @@ enum class ScreenType {
 }
 
 // Composable функция для получения адаптивных размеров
-
 @Composable
 fun rememberAdaptiveDimensions(): AdaptiveDimensions {
     val configuration = LocalConfiguration.current
@@ -77,19 +76,20 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenWidth = widthDp.dp,
                 screenHeight = heightDp.dp,
                 screenType = screenType,
-                horizontalPadding = 16.dp,
-                verticalPadding = 12.dp,
-                spaceBetweenButtons = 8.dp,
+                horizontalPadding = 20.dp,
+                verticalPadding = 40.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 48.dp,
                 buttonCornerRadius = 24.dp,
-                letterNSize = 120.dp,
-                letterNTopPadding = 8.dp,
-                letterNBottomPadding = 8.dp,
+                letterNSize = 200.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 50.dp,
-                bottomButtonWidth = 140.dp,
-                titleFontSize = 20f,
-                buttonFontSize = 16f,
-                bottomButtonFontSize = 18f
+                bottomButtonWidth = 50.dp,
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 22f,
+                buttonFontSize = 18f,
+                bottomButtonFontSize = 20f
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -97,94 +97,99 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenHeight = heightDp.dp,
                 screenType = screenType,
                 horizontalPadding = 20.dp,
-                verticalPadding = 16.dp,
-                spaceBetweenButtons = 10.dp,
+                verticalPadding = 20.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 56.dp,
                 buttonCornerRadius = 28.dp,
-                letterNSize = 160.dp,
-                letterNTopPadding = 12.dp,
-                letterNBottomPadding = 12.dp,
+                letterNSize = 240.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 56.dp,
                 bottomButtonWidth = 160.dp,
-                titleFontSize = 24f,
-                buttonFontSize = 18f,
-                bottomButtonFontSize = 20f
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 26f,
+                buttonFontSize = 20f,
+                bottomButtonFontSize = 22f
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
                 screenWidth = widthDp.dp,
                 screenHeight = heightDp.dp,
                 screenType = screenType,
-                horizontalPadding = 24.dp,
+                horizontalPadding = 20.dp,
                 verticalPadding = 20.dp,
-                spaceBetweenButtons = 12.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 60.dp,
                 buttonCornerRadius = 30.dp,
-                letterNSize = 180.dp,
-                letterNTopPadding = 16.dp,
-                letterNBottomPadding = 16.dp,
+                letterNSize = 260.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 60.dp,
                 bottomButtonWidth = 180.dp,
-                titleFontSize = 26f,
-                buttonFontSize = 20f,
-                bottomButtonFontSize = 22f
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 28f,
+                buttonFontSize = 22f,
+                bottomButtonFontSize = 24f
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
                 screenWidth = widthDp.dp,
                 screenHeight = heightDp.dp,
                 screenType = screenType,
-                horizontalPadding = 32.dp,
-                verticalPadding = 24.dp,
-                spaceBetweenButtons = 14.dp,
+                horizontalPadding = 20.dp,
+                verticalPadding = 20.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 68.dp,
                 buttonCornerRadius = 34.dp,
-                letterNSize = 220.dp,
+                letterNSize = 300.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 68.dp,
                 bottomButtonWidth = 200.dp,
-                titleFontSize = 30f,
-                buttonFontSize = 22f,
-                bottomButtonFontSize = 24f
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 32f,
+                buttonFontSize = 24f,
+                bottomButtonFontSize = 26f
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
                 screenWidth = widthDp.dp,
                 screenHeight = heightDp.dp,
                 screenType = screenType,
-                horizontalPadding = 40.dp,
-                verticalPadding = 28.dp,
-                spaceBetweenButtons = 16.dp,
+                horizontalPadding = 20.dp,
+                verticalPadding = 20.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 76.dp,
                 buttonCornerRadius = 38.dp,
-                letterNSize = 260.dp,
-                letterNTopPadding = 24.dp,
-                letterNBottomPadding = 24.dp,
+                letterNSize = 350.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 76.dp,
                 bottomButtonWidth = 220.dp,
-                titleFontSize = 34f,
-                buttonFontSize = 24f,
-                bottomButtonFontSize = 26f
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 36f,
+                buttonFontSize = 26f,
+                bottomButtonFontSize = 28f
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
                 screenWidth = widthDp.dp,
                 screenHeight = heightDp.dp,
                 screenType = screenType,
-                horizontalPadding = 48.dp,
-                verticalPadding = 32.dp,
-                spaceBetweenButtons = 18.dp,
+                horizontalPadding = 20.dp,
+                verticalPadding = 20.dp,
+                spaceBetweenButtons = 20.dp,
                 buttonHeight = 84.dp,
                 buttonCornerRadius = 42.dp,
-                letterNSize = 300.dp,
-                letterNTopPadding = 28.dp,
-                letterNBottomPadding = 28.dp,
+                letterNSize = 330.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
                 bottomButtonHeight = 84.dp,
                 bottomButtonWidth = 240.dp,
-                titleFontSize = 38f,
-                buttonFontSize = 26f,
-                bottomButtonFontSize = 28f
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 40f,
+                buttonFontSize = 28f,
+                bottomButtonFontSize = 30f
             )
         }
     }
