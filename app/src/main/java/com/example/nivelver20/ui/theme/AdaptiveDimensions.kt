@@ -1,11 +1,13 @@
 package com.example.nivelver20.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlin.math.sqrt
 
 // Data class для хранения адаптивных размеров
 data class AdaptiveDimensions(
@@ -35,7 +37,15 @@ data class AdaptiveDimensions(
     // Текст
     val titleFontSize: Float,
     val buttonFontSize: Float,
-    val bottomButtonFontSize: Float
+    val bottomButtonFontSize: Float,
+
+    // Для экрана выбора уровня
+    val nivelItemSpacing: Dp,
+    val nivelImageSize: Dp,
+    val nivelCircleWidth: Dp,
+    val nivelCircleHeight: Dp,
+    val nivelTitleFontSize: Float,
+    val nivelSideTextFontSize: Float
 )
 
 enum class ScreenType {
@@ -48,6 +58,7 @@ enum class ScreenType {
 }
 
 // Composable функция для получения адаптивных размеров
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun rememberAdaptiveDimensions(): AdaptiveDimensions {
     val configuration = LocalConfiguration.current
@@ -57,7 +68,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
         val widthDp = configuration.screenWidthDp
         val heightDp = configuration.screenHeightDp
         val screenDiagonal = with(density) {
-            Math.sqrt(
+            sqrt(
                 (widthDp * widthDp + heightDp * heightDp).toDouble()
             ).toFloat()
         }
@@ -77,19 +88,25 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenHeight = heightDp.dp,
                 screenType = screenType,
                 horizontalPadding = 20.dp,
-                verticalPadding = 40.dp,
+                verticalPadding = 20.dp,
                 spaceBetweenButtons = 20.dp,
-                buttonHeight = 48.dp,
+                buttonHeight = 40.dp,
                 buttonCornerRadius = 24.dp,
                 letterNSize = 200.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
-                bottomButtonHeight = 50.dp,
-                bottomButtonWidth = 50.dp,
+                bottomButtonHeight = 40.dp,
+                bottomButtonWidth = 40.dp,
                 bottomButtonsTopPadding = 20.dp,
                 titleFontSize = 22f,
                 buttonFontSize = 18f,
-                bottomButtonFontSize = 20f
+                bottomButtonFontSize = 20f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 90.dp,
+                nivelCircleWidth = 140.dp,
+                nivelCircleHeight = 90.dp,
+                nivelTitleFontSize = 28f,
+                nivelSideTextFontSize = 28f
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -99,17 +116,23 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 horizontalPadding = 20.dp,
                 verticalPadding = 20.dp,
                 spaceBetweenButtons = 20.dp,
-                buttonHeight = 56.dp,
+                buttonHeight = 45.dp,
                 buttonCornerRadius = 28.dp,
                 letterNSize = 240.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
-                bottomButtonHeight = 56.dp,
+                bottomButtonHeight = 45.dp,
                 bottomButtonWidth = 160.dp,
                 bottomButtonsTopPadding = 20.dp,
                 titleFontSize = 26f,
                 buttonFontSize = 20f,
-                bottomButtonFontSize = 22f
+                bottomButtonFontSize = 22f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 110.dp,
+                nivelCircleWidth = 155.dp,
+                nivelCircleHeight = 105.dp,
+                nivelTitleFontSize = 32f,
+                nivelSideTextFontSize = 32f
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
@@ -129,7 +152,13 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 bottomButtonsTopPadding = 20.dp,
                 titleFontSize = 28f,
                 buttonFontSize = 22f,
-                bottomButtonFontSize = 24f
+                bottomButtonFontSize = 24f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 150.dp,
+                nivelCircleWidth = 200.dp,
+                nivelCircleHeight = 150.dp,
+                nivelTitleFontSize = 36f,
+                nivelSideTextFontSize = 36f
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -137,19 +166,25 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenHeight = heightDp.dp,
                 screenType = screenType,
                 horizontalPadding = 20.dp,
-                verticalPadding = 20.dp,
+                verticalPadding = 40.dp,
                 spaceBetweenButtons = 20.dp,
-                buttonHeight = 68.dp,
+                buttonHeight = 58.dp,
                 buttonCornerRadius = 34.dp,
                 letterNSize = 300.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
-                bottomButtonHeight = 68.dp,
+                bottomButtonHeight = 58.dp,
                 bottomButtonWidth = 200.dp,
                 bottomButtonsTopPadding = 20.dp,
                 titleFontSize = 32f,
                 buttonFontSize = 24f,
-                bottomButtonFontSize = 26f
+                bottomButtonFontSize = 26f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 180.dp,
+                nivelCircleWidth = 360.dp,
+                nivelCircleHeight = 145.dp,
+                nivelTitleFontSize = 42f,
+                nivelSideTextFontSize = 42f
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -157,19 +192,25 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenHeight = heightDp.dp,
                 screenType = screenType,
                 horizontalPadding = 20.dp,
-                verticalPadding = 20.dp,
+                verticalPadding = 40.dp,
                 spaceBetweenButtons = 20.dp,
-                buttonHeight = 76.dp,
+                buttonHeight = 77.dp,
                 buttonCornerRadius = 38.dp,
                 letterNSize = 350.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
-                bottomButtonHeight = 76.dp,
+                bottomButtonHeight = 77.dp,
                 bottomButtonWidth = 220.dp,
                 bottomButtonsTopPadding = 20.dp,
-                titleFontSize = 36f,
-                buttonFontSize = 26f,
-                bottomButtonFontSize = 28f
+                titleFontSize = 44f,
+                buttonFontSize = 36f,
+                bottomButtonFontSize = 32f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 190.dp,
+                nivelCircleWidth = 390.dp,
+                nivelCircleHeight = 230.dp,
+                nivelTitleFontSize = 66f,
+                nivelSideTextFontSize = 66f
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -177,19 +218,25 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 screenHeight = heightDp.dp,
                 screenType = screenType,
                 horizontalPadding = 20.dp,
-                verticalPadding = 20.dp,
+                verticalPadding = 40.dp,
                 spaceBetweenButtons = 20.dp,
-                buttonHeight = 84.dp,
+                buttonHeight = 87.dp,
                 buttonCornerRadius = 42.dp,
-                letterNSize = 330.dp,
+                letterNSize = 400.dp,
                 letterNTopPadding = 20.dp,
                 letterNBottomPadding = 20.dp,
-                bottomButtonHeight = 84.dp,
+                bottomButtonHeight = 87.dp,
                 bottomButtonWidth = 240.dp,
                 bottomButtonsTopPadding = 20.dp,
                 titleFontSize = 40f,
                 buttonFontSize = 28f,
-                bottomButtonFontSize = 30f
+                bottomButtonFontSize = 30f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 220.dp,
+                nivelCircleWidth = 570.dp,
+                nivelCircleHeight = 170.dp,
+                nivelTitleFontSize = 54f,
+                nivelSideTextFontSize = 54f
             )
         }
     }
