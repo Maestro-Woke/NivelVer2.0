@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.nivelver20.ui.screens.auth.LoginScreen
 
 // Главная навигация приложения
 @Composable
@@ -48,7 +49,7 @@ fun AppNavigation(
                     // Пока пусто
                 },
                 onNavigateToPerfil = {
-                    // Пока пусто
+                    navController.navigate(Routes.Login.route)
                 }
             )
         }
@@ -67,6 +68,25 @@ fun AppNavigation(
                 onNavigateToPerfil = {
                     // Вернуться на главный экран
                     navController.popBackStack(Routes.Main.route, false)
+                }
+            )
+        }
+
+        composable(Routes.Login.route) {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Routes.Main.route) {
+                        popUpTo(Routes.Login.route) { inclusive = true }
+                    }
+                },
+                onNavigateToRegister = {
+                    // Пока пусто
+                },
+                onNavigateToTest = {
+                    // Пока пусто
+                },
+                onNavigateToPerfil = {
+                    // Пока пусто
                 }
             )
         }

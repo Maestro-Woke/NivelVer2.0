@@ -21,6 +21,6 @@ data class MainUiState(
     val grammatica: String = "GRAMMATICA",
     val audio: String = "AUDIO",
     val lectura: String = "LECTURA",
-    val TEST: String = "TEST",
-    val PERFIL: String = "PERFIL"
+    val testButton: String = "TEST",
+    val perfilButton: String = "PERFIL"
 )

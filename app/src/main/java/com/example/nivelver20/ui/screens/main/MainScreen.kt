@@ -176,14 +176,14 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.spacedBy(dimensions.spaceBetweenButtons)
             ) {
                 BottomButton(
-                    text = uiState.TEST,
+                    text = uiState.testButton,
                     onClick = onNavigateToTest,
                     dimensions = dimensions,
                     modifier = Modifier.weight(1f)
                 )
 
                 BottomButton(
-                    text = uiState.PERFIL,
+                    text = uiState.perfilButton,
                     onClick = onNavigateToPerfil,
                     dimensions = dimensions,
                     modifier = Modifier.weight(1f)

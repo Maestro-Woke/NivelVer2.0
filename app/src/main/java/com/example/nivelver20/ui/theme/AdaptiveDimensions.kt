@@ -45,7 +45,16 @@ data class AdaptiveDimensions(
     val nivelCircleWidth: Dp,
     val nivelCircleHeight: Dp,
     val nivelTitleFontSize: Float,
-    val nivelSideTextFontSize: Float
+    val nivelSideTextFontSize: Float,
+
+    // Для экрана авторизации (Login)
+    val loginTitleFontSize: Float,
+    val loginLabelFontSize: Float,
+    val loginInputHeight: Dp,
+    val loginButtonWidth: Dp,
+    val loginButtonHeight: Dp,
+    val loginSpaceBetweenInputs: Dp,
+    val loginSpaceBetweenButtons: Dp
 )
 
 enum class ScreenType {
@@ -106,7 +115,15 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 140.dp,
                 nivelCircleHeight = 90.dp,
                 nivelTitleFontSize = 28f,
-                nivelSideTextFontSize = 28f
+                nivelSideTextFontSize = 28f,
+                // Для экрана авторизации
+                loginTitleFontSize = 28f,
+                loginLabelFontSize = 16f,
+                loginInputHeight = 50.dp,
+                loginButtonWidth = 250.dp,
+                loginButtonHeight = 50.dp,
+                loginSpaceBetweenInputs = 15.dp,
+                loginSpaceBetweenButtons = 15.dp
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -132,7 +149,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 155.dp,
                 nivelCircleHeight = 105.dp,
                 nivelTitleFontSize = 32f,
-                nivelSideTextFontSize = 32f
+                nivelSideTextFontSize = 32f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 32f,
+                loginLabelFontSize = 18f,
+                loginInputHeight = 56.dp,
+                loginButtonWidth = 280.dp,
+                loginButtonHeight = 56.dp,
+                loginSpaceBetweenInputs = 20.dp,
+                loginSpaceBetweenButtons = 20.dp
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
@@ -158,7 +184,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 200.dp,
                 nivelCircleHeight = 150.dp,
                 nivelTitleFontSize = 36f,
-                nivelSideTextFontSize = 36f
+                nivelSideTextFontSize = 36f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 36f,
+                loginLabelFontSize = 20f,
+                loginInputHeight = 60.dp,
+                loginButtonWidth = 300.dp,
+                loginButtonHeight = 60.dp,
+                loginSpaceBetweenInputs = 20.dp,
+                loginSpaceBetweenButtons = 20.dp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -184,7 +219,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 360.dp,
                 nivelCircleHeight = 145.dp,
                 nivelTitleFontSize = 42f,
-                nivelSideTextFontSize = 42f
+                nivelSideTextFontSize = 42f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 42f,
+                loginLabelFontSize = 24f,
+                loginInputHeight = 68.dp,
+                loginButtonWidth = 350.dp,
+                loginButtonHeight = 68.dp,
+                loginSpaceBetweenInputs = 25.dp,
+                loginSpaceBetweenButtons = 25.dp
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -210,7 +254,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 390.dp,
                 nivelCircleHeight = 230.dp,
                 nivelTitleFontSize = 66f,
-                nivelSideTextFontSize = 66f
+                nivelSideTextFontSize = 66f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 48f,
+                loginLabelFontSize = 28f,
+                loginInputHeight = 76.dp,
+                loginButtonWidth = 400.dp,
+                loginButtonHeight = 76.dp,
+                loginSpaceBetweenInputs = 30.dp,
+                loginSpaceBetweenButtons = 30.dp
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -236,7 +289,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleWidth = 570.dp,
                 nivelCircleHeight = 170.dp,
                 nivelTitleFontSize = 54f,
-                nivelSideTextFontSize = 54f
+                nivelSideTextFontSize = 54f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 54f,
+                loginLabelFontSize = 32f,
+                loginInputHeight = 84.dp,
+                loginButtonWidth = 450.dp,
+                loginButtonHeight = 84.dp,
+                loginSpaceBetweenInputs = 35.dp,
+                loginSpaceBetweenButtons = 35.dp
             )
         }
     }
