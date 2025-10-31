@@ -26,12 +26,12 @@ import com.example.nivelver20.R
 import com.example.nivelver20.ui.theme.rememberAdaptiveDimensions
 
 @Composable
-fun LoginScreen(
-    onLoginSuccess: () -> Unit = {},
-    onNavigateToRegister: () -> Unit = {},
+fun RegisterScreen(
+    onRegisterSuccess: () -> Unit = {},
+    onNavigateBack: () -> Unit = {},
     onNavigateToTest: () -> Unit = {},
     onNavigateToPerfil: () -> Unit = {},
-    viewModel: LoginViewModel = viewModel()
+    viewModel: RegisterViewModel = viewModel()
 ) {
     val dimensions = rememberAdaptiveDimensions()
     val uiState by viewModel.uiState.collectAsState()
@@ -78,12 +78,13 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
 
-            // Форма входа
+            // Форма регистрации
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.loginSpaceBetweenInputs)
             ) {
+                // Уникальное имя
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -98,7 +99,7 @@ fun LoginScreen(
 
                     TextField(
                         value = uiState.nameUn,
-                        onValueChange = { viewModel.onEmailChange(it) },
+                        onValueChange = { viewModel.onNameChange(it) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(dimensions.loginInputHeight),
@@ -114,6 +115,7 @@ fun LoginScreen(
                     )
                 }
 
+                // Contraseña
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -146,12 +148,13 @@ fun LoginScreen(
                 }
             }
 
-            // Кнопки ENTRAR и REGISTRO
+            // Кнопки REGISTRARSE и VOLVER
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.loginSpaceBetweenButtons)
             ) {
+                // REGISTRARSE (в 2 раза меньше, стиль как TEST и PERFIL)
                 Box(
                     modifier = Modifier
                         .width(dimensions.loginButtonWidth)
@@ -167,7 +170,7 @@ fun LoginScreen(
                         )
                 ) {
                     Button(
-                        onClick = { onLoginSuccess() },
+                        onClick = { onRegisterSuccess() },
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(2.dp),
@@ -178,7 +181,7 @@ fun LoginScreen(
                         contentPadding = PaddingValues(0.dp)
                     ) {
                         Text(
-                            text = uiState.loginButton,
+                            text = uiState.registerButton,
                             fontSize = dimensions.bottomButtonFontSize.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFFa3b944)
@@ -186,9 +189,10 @@ fun LoginScreen(
                     }
                 }
 
+                // ENTRADA
                 Box(
                     modifier = Modifier
-                        .width(dimensions.loginButtonWidth )
+                        .width(dimensions.loginButtonWidth)
                         .height(dimensions.bottomButtonHeight)
                         .background(
                             brush = Brush.horizontalGradient(
@@ -201,7 +205,7 @@ fun LoginScreen(
                         )
                 ) {
                     Button(
-                        onClick = onNavigateToRegister,
+                        onClick = onNavigateBack,
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(2.dp),
@@ -212,7 +216,7 @@ fun LoginScreen(
                         contentPadding = PaddingValues(0.dp)
                     ) {
                         Text(
-                            text = uiState.registerButton,
+                            text = uiState.backButton,
                             fontSize = dimensions.bottomButtonFontSize.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFFa3b944)

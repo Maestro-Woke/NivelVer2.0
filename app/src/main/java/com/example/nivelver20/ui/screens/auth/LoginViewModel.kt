@@ -29,7 +29,7 @@ data class LoginUiState(
     val nameUn: String = "",
     val password: String = "",
     val title: String = "INICIAR SESIÓN",
-    val nameLabel: String = "INTRODUCE TU NOMBRE ÚNICO",
+    val nameLabel: String = "Nombre de usuario",
     val passwordLabel: String = "CONTRASEÑA",
     val loginButton: String = "ENTRAR",
     val registerButton: String = "REGISTRO",

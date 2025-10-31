@@ -116,6 +116,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelCircleHeight = 90.dp,
                 nivelTitleFontSize = 28f,
                 nivelSideTextFontSize = 28f,
+
                 // Для экрана авторизации
                 loginTitleFontSize = 28f,
                 loginLabelFontSize = 16f,
@@ -222,10 +223,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelSideTextFontSize = 42f,
 
                 // Для экрана авторизации
-                loginTitleFontSize = 42f,
-                loginLabelFontSize = 24f,
+                loginTitleFontSize = 48f,
+                loginLabelFontSize = 28f,
                 loginInputHeight = 68.dp,
-                loginButtonWidth = 350.dp,
+                loginButtonWidth = 250.dp,
                 loginButtonHeight = 68.dp,
                 loginSpaceBetweenInputs = 25.dp,
                 loginSpaceBetweenButtons = 25.dp
@@ -257,11 +258,11 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelSideTextFontSize = 66f,
 
                 // Для экрана авторизации
-                loginTitleFontSize = 48f,
-                loginLabelFontSize = 28f,
+                loginTitleFontSize = 55f,
+                loginLabelFontSize = 35f,
                 loginInputHeight = 76.dp,
                 loginButtonWidth = 400.dp,
-                loginButtonHeight = 76.dp,
+                loginButtonHeight = 77.dp,
                 loginSpaceBetweenInputs = 30.dp,
                 loginSpaceBetweenButtons = 30.dp
             )
@@ -292,11 +293,11 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelSideTextFontSize = 54f,
 
                 // Для экрана авторизации
-                loginTitleFontSize = 54f,
-                loginLabelFontSize = 32f,
+                loginTitleFontSize = 59f,
+                loginLabelFontSize = 38f,
                 loginInputHeight = 84.dp,
-                loginButtonWidth = 450.dp,
-                loginButtonHeight = 84.dp,
+                loginButtonWidth = 480.dp,
+                loginButtonHeight = 87.dp,
                 loginSpaceBetweenInputs = 35.dp,
                 loginSpaceBetweenButtons = 35.dp
             )

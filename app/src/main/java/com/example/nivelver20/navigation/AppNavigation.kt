@@ -20,6 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nivelver20.ui.screens.auth.LoginScreen
+import com.example.nivelver20.ui.screens.auth.RegisterScreen
+import com.example.nivelver20.ui.screens.perfil.PerfilScreen
 
 // Главная навигация приложения
 @Composable
@@ -46,7 +48,7 @@ fun AppNavigation(
                     // Пока пусто
                 },
                 onNavigateToTest = {
-                    // Пока пусто
+                    navController.navigate(Routes.Perfil.route)
                 },
                 onNavigateToPerfil = {
                     navController.navigate(Routes.Login.route)
@@ -72,6 +74,7 @@ fun AppNavigation(
             )
         }
 
+        // Экран авторизации
         composable(Routes.Login.route) {
             LoginScreen(
                 onLoginSuccess = {
@@ -80,13 +83,65 @@ fun AppNavigation(
                     }
                 },
                 onNavigateToRegister = {
+                    navController.navigate(Routes.Register.route)
+                },
+                onNavigateToTest = {
+                    navController.popBackStack(Routes.Main.route, false)
+                },
+                onNavigateToPerfil = {
+                    navController.navigate(Routes.Perfil.route)
+                }
+            )
+        }
+
+        // Экран регистрации
+        composable(Routes.Register.route) {
+            RegisterScreen(
+                onRegisterSuccess = {
+                    navController.navigate(Routes.Main.route) {
+                        popUpTo(Routes.Register.route) { inclusive = true }
+                    }
+                },
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateToTest = {
+                    navController.popBackStack(Routes.Main.route, false)
+                },
+                onNavigateToPerfil = {
+                    navController.navigate(Routes.Perfil.route)
+                }
+            )
+        }
+
+        // Экран профиля
+        composable(Routes.Perfil.route) {
+            PerfilScreen(
+                onNavigateToNivel = {
+                    // Переход на выбор уровня
+                    navController.navigate(Routes.NivelSelection.route)
+                },
+                onNavigateToFlujo = {
+                    // Пока пусто
+                },
+                onNavigateToVocabulario = {
+                    // Переход на словарь
+                    navController.navigate(Routes.NivelSelection.route)
+                },
+                onNavigateToGrammatica = {
+                    // Пока пусто
+                },
+                onNavigateToAudio = {
+                    // Пока пусто
+                },
+                onNavigateToLectura = {
                     // Пока пусто
                 },
                 onNavigateToTest = {
-                    // Пока пусто
+                    navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    // Пока пусто
+                    // Уже на профиле
                 }
             )
         }
