@@ -54,7 +54,16 @@ data class AdaptiveDimensions(
     val loginButtonWidth: Dp,
     val loginButtonHeight: Dp,
     val loginSpaceBetweenInputs: Dp,
-    val loginSpaceBetweenButtons: Dp
+    val loginSpaceBetweenButtons: Dp,
+
+    // Для экрана Vocabulario
+    val vocabularioCardHeight: Dp,
+    val vocabularioCardCornerRadius: Dp,
+    val vocabularioTitleFontSize: Float,
+    val vocabularioWordFontSize: Float,
+    val vocabularioCounterFontSize: Float,
+    val vocabularioCardSpacing: Dp,
+    val vocabularioPadding: Dp
 )
 
 enum class ScreenType {
@@ -124,7 +133,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 250.dp,
                 loginButtonHeight = 50.dp,
                 loginSpaceBetweenInputs = 15.dp,
-                loginSpaceBetweenButtons = 15.dp
+                loginSpaceBetweenButtons = 15.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 60.dp,
+                vocabularioCardCornerRadius = 12.dp,
+                vocabularioTitleFontSize = 28f,
+                vocabularioWordFontSize = 18f,
+                vocabularioCounterFontSize = 42f,
+                vocabularioCardSpacing = 10.dp,
+                vocabularioPadding = 16.dp
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -159,7 +177,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 280.dp,
                 loginButtonHeight = 56.dp,
                 loginSpaceBetweenInputs = 20.dp,
-                loginSpaceBetweenButtons = 20.dp
+                loginSpaceBetweenButtons = 20.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 70.dp,
+                vocabularioCardCornerRadius = 14.dp,
+                vocabularioTitleFontSize = 32f,
+                vocabularioWordFontSize = 20f,
+                vocabularioCounterFontSize = 48f,
+                vocabularioCardSpacing = 12.dp,
+                vocabularioPadding = 18.dp
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
@@ -194,7 +221,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 300.dp,
                 loginButtonHeight = 60.dp,
                 loginSpaceBetweenInputs = 20.dp,
-                loginSpaceBetweenButtons = 20.dp
+                loginSpaceBetweenButtons = 20.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 20.dp,
+                vocabularioCardCornerRadius = 18.dp,
+                vocabularioTitleFontSize = 30f,
+                vocabularioWordFontSize = 19f,
+                vocabularioCounterFontSize = 42f,
+                vocabularioCardSpacing = 12.dp,
+                vocabularioPadding = 16.dp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -229,7 +265,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 250.dp,
                 loginButtonHeight = 68.dp,
                 loginSpaceBetweenInputs = 25.dp,
-                loginSpaceBetweenButtons = 25.dp
+                loginSpaceBetweenButtons = 25.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 40.dp,
+                vocabularioCardCornerRadius = 18.dp,
+                vocabularioTitleFontSize = 42f,
+                vocabularioWordFontSize = 26f,
+                vocabularioCounterFontSize = 63f,
+                vocabularioCardSpacing = 16.dp,
+                vocabularioPadding = 22.dp
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -264,7 +309,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 400.dp,
                 loginButtonHeight = 77.dp,
                 loginSpaceBetweenInputs = 30.dp,
-                loginSpaceBetweenButtons = 30.dp
+                loginSpaceBetweenButtons = 30.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 40.dp,
+                vocabularioCardCornerRadius = 20.dp,
+                vocabularioTitleFontSize = 48f,
+                vocabularioWordFontSize = 30f,
+                vocabularioCounterFontSize = 72f,
+                vocabularioCardSpacing = 18.dp,
+                vocabularioPadding = 24.dp
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -299,7 +353,16 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginButtonWidth = 480.dp,
                 loginButtonHeight = 87.dp,
                 loginSpaceBetweenInputs = 35.dp,
-                loginSpaceBetweenButtons = 35.dp
+                loginSpaceBetweenButtons = 35.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 110.dp,
+                vocabularioCardCornerRadius = 22.dp,
+                vocabularioTitleFontSize = 54f,
+                vocabularioWordFontSize = 34f,
+                vocabularioCounterFontSize = 81f,
+                vocabularioCardSpacing = 20.dp,
+                vocabularioPadding = 26.dp
             )
         }
     }

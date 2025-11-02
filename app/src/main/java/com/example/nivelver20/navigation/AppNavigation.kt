@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.example.nivelver20.ui.screens.auth.LoginScreen
 import com.example.nivelver20.ui.screens.auth.RegisterScreen
 import com.example.nivelver20.ui.screens.perfil.PerfilScreen
+import com.example.nivelver20.ui.screens.vocabulario.VocabularioScreen
 
 // Главная навигация приложения
 @Composable
@@ -146,14 +147,15 @@ fun AppNavigation(
             )
         }
 
-        // Экран Vocabulario (пока заглушка)
         composable(Routes.Vocabulario.route + "/{nivelId}") { backStackEntry ->
             val nivelId = backStackEntry.arguments?.getString("nivelId") ?: "A1"
-            // Временная заглушка
-            PlaceholderScreen(
-                text = "Vocabulario\nNivel: $nivelId",
-                onBack = {
-                    navController.popBackStack()
+            VocabularioScreen(
+                nivel = nivelId,
+                onNavigateToTest = {
+                    navController.popBackStack(Routes.Main.route, false)
+                },
+                onNavigateToPerfil = {
+                    navController.navigate(Routes.Perfil.route)
                 }
             )
         }
