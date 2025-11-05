@@ -3,9 +3,6 @@ package com.example.nivelver20.ui.screens.vocabulario
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -69,7 +66,6 @@ fun VocabularioScreen(
 
             Spacer(modifier = Modifier.height(dimensions.verticalPadding))
 
-
             // Карточка с заголовком и словами
             Box(
                 modifier = Modifier
@@ -87,7 +83,8 @@ fun VocabularioScreen(
                     .padding(dimensions.vocabularioPadding)
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     // Заголовок VOCABULARIO
                     Text(
@@ -99,16 +96,14 @@ fun VocabularioScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // БЛОК ИСПАНСКИХ СЛОВ (4 карточки в 2 рядах)
+                    // БЛОК ИСПАНСКИХ СЛОВ (2x2)
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                     ) {
-                        // Первый ряд испанских слов
+                        // Первый ряд испанских
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -116,20 +111,20 @@ fun VocabularioScreen(
                             horizontalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                         ) {
                             WordCardItem(
-                                card = uiState.wordCards[0],
-                                onClick = { viewModel.toggleCard(0) },
+                                card = uiState.spanishWords.getOrNull(0),
+                                onClick = { viewModel.toggleSpanishCard(0) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                             WordCardItem(
-                                card = uiState.wordCards[1],
-                                onClick = { viewModel.toggleCard(1) },
+                                card = uiState.spanishWords.getOrNull(1),
+                                onClick = { viewModel.toggleSpanishCard(1) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                         }
 
-                        // Второй ряд испанских слов
+                        // Второй ряд испанских
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -137,30 +132,30 @@ fun VocabularioScreen(
                             horizontalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                         ) {
                             WordCardItem(
-                                card = uiState.wordCards[2],
-                                onClick = { viewModel.toggleCard(2) },
+                                card = uiState.spanishWords.getOrNull(2),
+                                onClick = { viewModel.toggleSpanishCard(2) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                             WordCardItem(
-                                card = uiState.wordCards[3],
-                                onClick = { viewModel.toggleCard(3) },
+                                card = uiState.spanishWords.getOrNull(3),
+                                onClick = { viewModel.toggleSpanishCard(3) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(dimensions.vocabularioCardSpacing))
+                    Spacer(modifier = Modifier.height(dimensions.vocabularioBlockSpacing))
 
-                    // БЛОК РУССКИХ СЛОВ (4 карточки в 2 рядах)
+                    // БЛОК РУССКИХ СЛОВ (2x2)
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                     ) {
-                        // Первый ряд русских слов
+                        // Первый ряд русских
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -168,20 +163,20 @@ fun VocabularioScreen(
                             horizontalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                         ) {
                             WordCardItem(
-                                card = uiState.wordCards[4],
-                                onClick = { viewModel.toggleCard(4) },
+                                card = uiState.russianWords.getOrNull(0),
+                                onClick = { viewModel.toggleRussianCard(0) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                             WordCardItem(
-                                card = uiState.wordCards[5],
-                                onClick = { viewModel.toggleCard(5) },
+                                card = uiState.russianWords.getOrNull(1),
+                                onClick = { viewModel.toggleRussianCard(1) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                         }
 
-                        // Второй ряд русских слов
+                        // Второй ряд русских
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -189,21 +184,19 @@ fun VocabularioScreen(
                             horizontalArrangement = Arrangement.spacedBy(dimensions.vocabularioCardSpacing)
                         ) {
                             WordCardItem(
-                                card = uiState.wordCards[6],
-                                onClick = { viewModel.toggleCard(6) },
+                                card = uiState.russianWords.getOrNull(2),
+                                onClick = { viewModel.toggleRussianCard(2) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                             WordCardItem(
-                                card = uiState.wordCards[7],
-                                onClick = { viewModel.toggleCard(7) },
+                                card = uiState.russianWords.getOrNull(3),
+                                onClick = { viewModel.toggleRussianCard(3) },
                                 dimensions = dimensions,
                                 modifier = Modifier.weight(1f)
                             )
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(8.dp))
 
                     // Счетчики внизу
                     Row(
@@ -256,7 +249,7 @@ fun VocabularioScreen(
 
 @Composable
 private fun WordCardItem(
-    card: WordCard,
+    card: WordCard?,
     onClick: () -> Unit,
     dimensions: com.example.nivelver20.ui.theme.AdaptiveDimensions,
     modifier: Modifier = Modifier
@@ -268,17 +261,19 @@ private fun WordCardItem(
                 color = Color(0xFFF5F5DC),
                 shape = RoundedCornerShape(dimensions.vocabularioCardCornerRadius)
             )
-            .clickable { onClick() },
+            .clickable { if (card != null) onClick() },
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = if (card.isRevealed) card.russian else card.spanish,
-            fontSize = dimensions.vocabularioWordFontSize.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF003D5B),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 8.dp)
-        )
+        if (card != null) {
+            Text(
+                text = if (card.isRevealed) card.russian else card.spanish,
+                fontSize = dimensions.vocabularioWordFontSize.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF003D5B),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+        }
     }
 }
 

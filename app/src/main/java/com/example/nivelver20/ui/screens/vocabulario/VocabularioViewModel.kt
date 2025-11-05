@@ -17,11 +17,15 @@ data class VocabularioUiState(
     val nivel: String = "A1",
     val userName: String = "NOMBRE",
     val title: String = "VOCABULARIO",
-    val wordCards: List<WordCard> = listOf(
+    // 4 испанских слова
+    val spanishWords: List<WordCard> = listOf(
         WordCard("palabra", "слово"),
         WordCard("casa", "дом"),
         WordCard("agua", "вода"),
-        WordCard("tiempo", "время"),
+        WordCard("tiempo", "время")
+    ),
+    // 4 русских слова
+    val russianWords: List<WordCard> = listOf(
         WordCard("persona", "человек"),
         WordCard("día", "день"),
         WordCard("mano", "рука"),
@@ -37,13 +41,23 @@ class VocabularioViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(VocabularioUiState())
     val uiState: StateFlow<VocabularioUiState> = _uiState.asStateFlow()
 
-    fun toggleCard(index: Int) {
+    fun toggleSpanishCard(index: Int) {
         _uiState.update { currentState ->
-            val updatedCards = currentState.wordCards.toMutableList()
+            val updatedCards = currentState.spanishWords.toMutableList()
             updatedCards[index] = updatedCards[index].copy(
                 isRevealed = !updatedCards[index].isRevealed
             )
-            currentState.copy(wordCards = updatedCards)
+            currentState.copy(spanishWords = updatedCards)
+        }
+    }
+
+    fun toggleRussianCard(index: Int) {
+        _uiState.update { currentState ->
+            val updatedCards = currentState.russianWords.toMutableList()
+            updatedCards[index] = updatedCards[index].copy(
+                isRevealed = !updatedCards[index].isRevealed
+            )
+            currentState.copy(russianWords = updatedCards)
         }
     }
 

@@ -63,7 +63,9 @@ data class AdaptiveDimensions(
     val vocabularioWordFontSize: Float,
     val vocabularioCounterFontSize: Float,
     val vocabularioCardSpacing: Dp,
-    val vocabularioPadding: Dp
+    val vocabularioPadding: Dp,
+    val vocabularioBlockWeight: Float,  // Вес блока карточек (испанских/русских)
+    val vocabularioBlockSpacing: Dp
 )
 
 enum class ScreenType {
@@ -142,7 +144,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioWordFontSize = 18f,
                 vocabularioCounterFontSize = 42f,
                 vocabularioCardSpacing = 10.dp,
-                vocabularioPadding = 16.dp
+                vocabularioPadding = 16.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -186,7 +190,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioWordFontSize = 20f,
                 vocabularioCounterFontSize = 48f,
                 vocabularioCardSpacing = 12.dp,
-                vocabularioPadding = 18.dp
+                vocabularioPadding = 18.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
@@ -229,8 +235,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioTitleFontSize = 30f,
                 vocabularioWordFontSize = 19f,
                 vocabularioCounterFontSize = 42f,
-                vocabularioCardSpacing = 12.dp,
-                vocabularioPadding = 16.dp
+                vocabularioCardSpacing = 6.dp,
+                vocabularioPadding = 16.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -273,8 +281,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioTitleFontSize = 42f,
                 vocabularioWordFontSize = 26f,
                 vocabularioCounterFontSize = 63f,
-                vocabularioCardSpacing = 16.dp,
-                vocabularioPadding = 22.dp
+                vocabularioCardSpacing = 6.dp,
+                vocabularioPadding = 22.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -318,7 +328,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioWordFontSize = 30f,
                 vocabularioCounterFontSize = 72f,
                 vocabularioCardSpacing = 18.dp,
-                vocabularioPadding = 24.dp
+                vocabularioPadding = 24.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -362,7 +374,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioWordFontSize = 34f,
                 vocabularioCounterFontSize = 81f,
                 vocabularioCardSpacing = 20.dp,
-                vocabularioPadding = 26.dp
+                vocabularioPadding = 26.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp
             )
         }
     }
