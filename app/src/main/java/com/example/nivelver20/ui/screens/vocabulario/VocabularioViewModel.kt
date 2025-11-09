@@ -17,19 +17,27 @@ data class VocabularioUiState(
     val nivel: String = "A1",
     val userName: String = "NOMBRE",
     val title: String = "VOCABULARIO",
-    // 4 испанских слова
+    // 8 испанских слов
     val spanishWords: List<WordCard> = listOf(
-        WordCard("palabra", "слово"),
+        WordCard("palabrnvjenrkjgvnejkgnejngvienvienvien", "слово"),
         WordCard("casa", "дом"),
         WordCard("agua", "вода"),
-        WordCard("tiempo", "время")
+        WordCard("tiempo", "время"),
+        WordCard("hombre", "мужчина"),
+        WordCard("mujer", "женщина"),
+        WordCard("niño", "ребёнок"),
+        WordCard("vida", "жизнь")
     ),
-    // 4 русских слова
+    // 8 русских слов
     val russianWords: List<WordCard> = listOf(
         WordCard("persona", "человек"),
         WordCard("día", "день"),
         WordCard("mano", "рука"),
-        WordCard("hombre", "мужчина")
+        WordCard("mundo", "мир"),
+        WordCard("trabajo", "работа"),
+        WordCard("país", "страна"),
+        WordCard("año", "год"),
+        WordCard("vez", "раз")
     ),
     val correctCount: Int = 25,
     val incorrectCount: Int = 25,
@@ -44,9 +52,11 @@ class VocabularioViewModel : ViewModel() {
     fun toggleSpanishCard(index: Int) {
         _uiState.update { currentState ->
             val updatedCards = currentState.spanishWords.toMutableList()
-            updatedCards[index] = updatedCards[index].copy(
-                isRevealed = !updatedCards[index].isRevealed
-            )
+            if (index in updatedCards.indices) {
+                updatedCards[index] = updatedCards[index].copy(
+                    isRevealed = !updatedCards[index].isRevealed
+                )
+            }
             currentState.copy(spanishWords = updatedCards)
         }
     }
@@ -54,9 +64,11 @@ class VocabularioViewModel : ViewModel() {
     fun toggleRussianCard(index: Int) {
         _uiState.update { currentState ->
             val updatedCards = currentState.russianWords.toMutableList()
-            updatedCards[index] = updatedCards[index].copy(
-                isRevealed = !updatedCards[index].isRevealed
-            )
+            if (index in updatedCards.indices) {
+                updatedCards[index] = updatedCards[index].copy(
+                    isRevealed = !updatedCards[index].isRevealed
+                )
+            }
             currentState.copy(russianWords = updatedCards)
         }
     }

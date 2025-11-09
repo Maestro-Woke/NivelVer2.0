@@ -149,8 +149,11 @@ fun NivelSelectionScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                    .padding(
+                        top = dimensions.bottomButtonsTopPadding,
+                        bottom = dimensions.verticalPadding
+                    ),
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceBetweenButtons)
             ) {
                 BottomButton(
                     text = uiState.testButton,

@@ -46,7 +46,6 @@ data class AdaptiveDimensions(
     val nivelCircleHeight: Dp,
     val nivelTitleFontSize: Float,
     val nivelSideTextFontSize: Float,
-
     // Для экрана авторизации (Login)
     val loginTitleFontSize: Float,
     val loginLabelFontSize: Float,
@@ -65,14 +64,16 @@ data class AdaptiveDimensions(
     val vocabularioCardSpacing: Dp,
     val vocabularioPadding: Dp,
     val vocabularioBlockWeight: Float,  // Вес блока карточек (испанских/русских)
-    val vocabularioBlockSpacing: Dp
+    val vocabularioBlockSpacing: Dp,
+    val vocabularioPadingH: Dp,
 )
 
 enum class ScreenType {
     SMALL_PHONE,    // 3.5" - 4.5"
     MEDIUM_PHONE,   // 4.5" - 5.5"
     LARGE_PHONE,    // 5.5" - 6.5"
-    SMALL_TABLET,   // 6.5" - 9"
+    XLARGE_PHONE,   // 6.5" - 6.9"
+    SMALL_TABLET,   // 6.9" - 9"
     MEDIUM_TABLET,  // 9" - 11"
     LARGE_TABLET    // 11"+
 }
@@ -97,6 +98,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
             screenDiagonal < 4.5f * 160 -> ScreenType.SMALL_PHONE
             screenDiagonal < 5.5f * 160 -> ScreenType.MEDIUM_PHONE
             screenDiagonal < 6.5f * 160 -> ScreenType.LARGE_PHONE
+            screenDiagonal < 6.9f * 160 -> ScreenType.XLARGE_PHONE
             screenDiagonal < 9f * 160 -> ScreenType.SMALL_TABLET
             screenDiagonal < 11f * 160 -> ScreenType.MEDIUM_TABLET
             else -> ScreenType.LARGE_TABLET
@@ -140,13 +142,15 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 // Для экрана Vocabulario
                 vocabularioCardHeight = 60.dp,
                 vocabularioCardCornerRadius = 12.dp,
-                vocabularioTitleFontSize = 28f,
+                vocabularioTitleFontSize = 18f,
                 vocabularioWordFontSize = 18f,
-                vocabularioCounterFontSize = 42f,
+                vocabularioCounterFontSize = 18f,
                 vocabularioCardSpacing = 10.dp,
                 vocabularioPadding = 16.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
+
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -186,13 +190,15 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 // Для экрана Vocabulario
                 vocabularioCardHeight = 70.dp,
                 vocabularioCardCornerRadius = 14.dp,
-                vocabularioTitleFontSize = 32f,
+                vocabularioTitleFontSize = 24f,
                 vocabularioWordFontSize = 20f,
-                vocabularioCounterFontSize = 48f,
+                vocabularioCounterFontSize = 24f,
                 vocabularioCardSpacing = 12.dp,
                 vocabularioPadding = 18.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
+
             )
 
             ScreenType.LARGE_PHONE -> AdaptiveDimensions(
@@ -232,13 +238,61 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 // Для экрана Vocabulario
                 vocabularioCardHeight = 20.dp,
                 vocabularioCardCornerRadius = 18.dp,
-                vocabularioTitleFontSize = 30f,
-                vocabularioWordFontSize = 19f,
-                vocabularioCounterFontSize = 42f,
+                vocabularioTitleFontSize = 28f,
+                vocabularioWordFontSize = 20f,
+                vocabularioCounterFontSize = 28f,
                 vocabularioCardSpacing = 6.dp,
                 vocabularioPadding = 16.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp,
+            )
+
+            ScreenType.XLARGE_PHONE -> AdaptiveDimensions(
+                screenWidth = widthDp.dp,
+                screenHeight = heightDp.dp,
+                screenType = screenType,
+                horizontalPadding = 20.dp,
+                verticalPadding = 20.dp,
+                spaceBetweenButtons = 20.dp,
+                buttonHeight = 65.dp,
+                buttonCornerRadius = 32.dp,
+                letterNSize = 280.dp,
+                letterNTopPadding = 20.dp,
+                letterNBottomPadding = 20.dp,
+                bottomButtonHeight = 65.dp,
+                bottomButtonWidth = 190.dp,
+                bottomButtonsTopPadding = 20.dp,
+                titleFontSize = 30f,
+                buttonFontSize = 24f,
+                bottomButtonFontSize = 26f,
+                nivelItemSpacing = 20.dp,
+                nivelImageSize = 160.dp,
+                nivelCircleWidth = 240.dp,
+                nivelCircleHeight = 160.dp,
+                nivelTitleFontSize = 38f,
+                nivelSideTextFontSize = 38f,
+
+                // Для экрана авторизации
+                loginTitleFontSize = 38f,
+                loginLabelFontSize = 22f,
+                loginInputHeight = 64.dp,
+                loginButtonWidth = 320.dp,
+                loginButtonHeight = 64.dp,
+                loginSpaceBetweenInputs = 22.dp,
+                loginSpaceBetweenButtons = 22.dp,
+
+                // Для экрана Vocabulario
+                vocabularioCardHeight = 25.dp,
+                vocabularioCardCornerRadius = 19.dp,
+                vocabularioTitleFontSize = 30f,
+                vocabularioWordFontSize = 22f,
+                vocabularioCounterFontSize = 30f,
+                vocabularioCardSpacing = 8.dp,
+                vocabularioPadding = 18.dp,
+                vocabularioBlockWeight = 0.3f,
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -261,7 +315,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 bottomButtonFontSize = 26f,
                 nivelItemSpacing = 20.dp,
                 nivelImageSize = 180.dp,
-                nivelCircleWidth = 360.dp,
+                nivelCircleWidth = 260.dp,
                 nivelCircleHeight = 145.dp,
                 nivelTitleFontSize = 42f,
                 nivelSideTextFontSize = 42f,
@@ -278,13 +332,15 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 // Для экрана Vocabulario
                 vocabularioCardHeight = 40.dp,
                 vocabularioCardCornerRadius = 18.dp,
-                vocabularioTitleFontSize = 42f,
+                vocabularioTitleFontSize = 36f,
                 vocabularioWordFontSize = 26f,
-                vocabularioCounterFontSize = 63f,
+                vocabularioCounterFontSize = 36f,
                 vocabularioCardSpacing = 6.dp,
                 vocabularioPadding = 22.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
+
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -322,15 +378,17 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginSpaceBetweenButtons = 30.dp,
 
                 // Для экрана Vocabulario
-                vocabularioCardHeight = 40.dp,
+                vocabularioCardHeight = 90.dp,
                 vocabularioCardCornerRadius = 20.dp,
-                vocabularioTitleFontSize = 48f,
+                vocabularioTitleFontSize = 44f,
                 vocabularioWordFontSize = 30f,
-                vocabularioCounterFontSize = 72f,
+                vocabularioCounterFontSize = 44f,
                 vocabularioCardSpacing = 18.dp,
                 vocabularioPadding = 24.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
+
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -368,15 +426,17 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 loginSpaceBetweenButtons = 35.dp,
 
                 // Для экрана Vocabulario
-                vocabularioCardHeight = 110.dp,
+                vocabularioCardHeight = 140.dp,
                 vocabularioCardCornerRadius = 22.dp,
-                vocabularioTitleFontSize = 54f,
+                vocabularioTitleFontSize = 49f,
                 vocabularioWordFontSize = 34f,
-                vocabularioCounterFontSize = 81f,
+                vocabularioCounterFontSize = 49f,
                 vocabularioCardSpacing = 20.dp,
                 vocabularioPadding = 26.dp,
                 vocabularioBlockWeight = 0.3f,
-                vocabularioBlockSpacing = 10.dp
+                vocabularioBlockSpacing = 10.dp,
+                vocabularioPadingH = 12.dp
+
             )
         }
     }
