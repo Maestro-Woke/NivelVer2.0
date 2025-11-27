@@ -19,8 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.nivelver20.ui.screens.audio.AudioScreen
 import com.example.nivelver20.ui.screens.auth.LoginScreen
 import com.example.nivelver20.ui.screens.auth.RegisterScreen
+import com.example.nivelver20.ui.screens.lectura.LecturaScreen
 import com.example.nivelver20.ui.screens.perfil.PerfilScreen
 import com.example.nivelver20.ui.screens.vocabulario.VocabularioScreen
 
@@ -37,16 +39,16 @@ fun AppNavigation(
         composable(Routes.Main.route) {
             MainScreen(
                 onNavigateToVocabulario = {
-                    navController.navigate(Routes.NivelSelection.route)
+                    navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
                 },
                 onNavigateToGrammatica = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=grammatica")
                 },
                 onNavigateToAudio = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=audio")
                 },
                 onNavigateToLectura = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=lectura")
                 },
                 onNavigateToTest = {
                     navController.navigate(Routes.Perfil.route)
@@ -58,18 +60,21 @@ fun AppNavigation(
         }
 
         // Экран выбора уровня
-        composable(Routes.NivelSelection.route) {
+        composable(Routes.NivelSelection.route + "?destination={destination}") { backStackEntry ->
+            val destination = backStackEntry.arguments?.getString("destination") ?: "vocabulario"
             NivelSelectionScreen(
                 onNivelSelected = { nivelId ->
-                    // Когда выберут уровень, перейдем на Vocabulario
-                    navController.navigate(Routes.Vocabulario.route + "/$nivelId")
+                    when (destination) {
+                        "lectura" -> navController.navigate(Routes.Lectura.route + "/$nivelId")
+                        "audio" -> navController.navigate(Routes.Audio.route + "/$nivelId")
+                        "grammatica" -> navController.navigate(Routes.Grammatica.route + "/$nivelId")
+                        else -> navController.navigate(Routes.Vocabulario.route + "/$nivelId")
+                    }
                 },
                 onNavigateToTest = {
-                    // Вернуться на главный экран
                     navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    // Вернуться на главный экран
                     navController.popBackStack(Routes.Main.route, false)
                 }
             )
@@ -119,24 +124,22 @@ fun AppNavigation(
         composable(Routes.Perfil.route) {
             PerfilScreen(
                 onNavigateToNivel = {
-                    // Переход на выбор уровня
-                    navController.navigate(Routes.NivelSelection.route)
+                    navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
                 },
                 onNavigateToFlujo = {
                     // Пока пусто
                 },
                 onNavigateToVocabulario = {
-                    // Переход на словарь
-                    navController.navigate(Routes.NivelSelection.route)
+                    navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
                 },
                 onNavigateToGrammatica = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=grammatica")
                 },
                 onNavigateToAudio = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=audio")
                 },
                 onNavigateToLectura = {
-                    // Пока пусто
+                    navController.navigate(Routes.NivelSelection.route + "?destination=lectura")
                 },
                 onNavigateToTest = {
                     navController.popBackStack(Routes.Main.route, false)
@@ -156,6 +159,45 @@ fun AppNavigation(
                 },
                 onNavigateToPerfil = {
                     navController.navigate(Routes.Perfil.route)
+                }
+            )
+        }
+
+        // Экран Lectura
+        composable(Routes.Lectura.route + "/{nivelId}") { backStackEntry ->
+            val nivelId = backStackEntry.arguments?.getString("nivelId") ?: "A1"
+            LecturaScreen(
+                nivel = nivelId,
+                onNavigateToTest = {
+                    navController.popBackStack(Routes.Main.route, false)
+                },
+                onNavigateToPerfil = {
+                    navController.navigate(Routes.Perfil.route)
+                }
+            )
+        }
+
+        // Экран Audio
+        composable(Routes.Audio.route + "/{nivelId}") { backStackEntry ->
+            val nivelId = backStackEntry.arguments?.getString("nivelId") ?: "A1"
+            AudioScreen(
+                nivel = nivelId,
+                onNavigateToTest = {
+                    navController.popBackStack(Routes.Main.route, false)
+                },
+                onNavigateToPerfil = {
+                    navController.navigate(Routes.Perfil.route)
+                }
+            )
+        }
+
+        // Экран Grammatica
+        composable(Routes.Grammatica.route + "/{nivelId}") { backStackEntry ->
+            val nivelId = backStackEntry.arguments?.getString("nivelId") ?: "A1"
+            PlaceholderScreen(
+                text = "GRAMÁTICA\nNivel: $nivelId",
+                onBack = {
+                    navController.popBackStack(Routes.Main.route, false)
                 }
             )
         }

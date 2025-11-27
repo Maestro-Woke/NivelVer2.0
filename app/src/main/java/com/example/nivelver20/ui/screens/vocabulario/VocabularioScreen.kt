@@ -46,9 +46,8 @@ fun VocabularioScreen(
             contentDescription = "Letter Ñ",
             modifier = Modifier.fillMaxWidth(0.8f)
             .fillMaxHeight(0.7f),
-            alpha = 0.3f,
+            alpha = 0.15f,
             contentScale = ContentScale.Fit
-
         )
     }
     Column(

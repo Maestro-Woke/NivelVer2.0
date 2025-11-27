@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.sqrt
 
 // Data class для хранения адаптивных размеров
@@ -66,6 +67,9 @@ data class AdaptiveDimensions(
     val vocabularioBlockWeight: Float,  // Вес блока карточек (испанских/русских)
     val vocabularioBlockSpacing: Dp,
     val vocabularioPadingH: Dp,
+
+    // Для экрана Audio
+    val audioVolumeUp: Dp
 )
 
 enum class ScreenType {
@@ -125,7 +129,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 bottomButtonFontSize = 20f,
                 nivelItemSpacing = 20.dp,
                 nivelImageSize = 90.dp,
-                nivelCircleWidth = 140.dp,
+                nivelCircleWidth = 120.dp,
                 nivelCircleHeight = 90.dp,
                 nivelTitleFontSize = 28f,
                 nivelSideTextFontSize = 28f,
@@ -149,8 +153,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 16.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
 
+                // Для экрана Audio
+                audioVolumeUp = 250.dp
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -174,7 +180,7 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 nivelItemSpacing = 20.dp,
                 nivelImageSize = 110.dp,
                 nivelCircleWidth = 155.dp,
-                nivelCircleHeight = 105.dp,
+                nivelCircleHeight = 80.dp,
                 nivelTitleFontSize = 32f,
                 nivelSideTextFontSize = 32f,
 
@@ -197,7 +203,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 18.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 400.dp
 
             )
 
@@ -246,6 +255,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
                 vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 790.dp
             )
 
             ScreenType.XLARGE_PHONE -> AdaptiveDimensions(
@@ -292,7 +304,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 18.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 7116.dp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -339,7 +354,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 22.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 26.dp
 
             )
 
@@ -387,7 +405,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 24.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 29.dp
 
             )
 
@@ -435,7 +456,10 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadding = 26.dp,
                 vocabularioBlockWeight = 0.3f,
                 vocabularioBlockSpacing = 10.dp,
-                vocabularioPadingH = 12.dp
+                vocabularioPadingH = 12.dp,
+
+                // Для экрана Audio
+                audioVolumeUp = 33.dp
 
             )
         }

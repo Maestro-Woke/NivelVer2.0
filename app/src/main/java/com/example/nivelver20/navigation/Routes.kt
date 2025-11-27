@@ -8,4 +8,9 @@ sealed class Routes(val route: String) {
     object Perfil : Routes("perfil")
     object NivelSelection : Routes("nivel_selection")
     object Vocabulario : Routes("vocabulario")
+    object Lectura : Routes("lectura")
+    object Audio : Routes ("audio")
+    object Grammatica : Routes("grammatica")
+    object Nivel : Routes("nivel")
+    object Flujo : Routes("flujo")
 }
