@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.sqrt
@@ -69,7 +70,8 @@ data class AdaptiveDimensions(
     val vocabularioPadingH: Dp,
 
     // Для экрана Audio
-    val audioVolumeUp: Dp
+    val audioVolumeUp: Dp,
+    val lineHeightForAudAndLect: TextUnit
 )
 
 enum class ScreenType {
@@ -156,7 +158,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 250.dp
+                audioVolumeUp = 50.dp,
+                lineHeightForAudAndLect = 25.sp
+
             )
 
             ScreenType.MEDIUM_PHONE -> AdaptiveDimensions(
@@ -206,7 +210,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 400.dp
+                audioVolumeUp = 90.dp,
+                lineHeightForAudAndLect = 30.sp
 
             )
 
@@ -257,7 +262,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 790.dp
+                audioVolumeUp = 150.dp,
+                lineHeightForAudAndLect = 35.sp
             )
 
             ScreenType.XLARGE_PHONE -> AdaptiveDimensions(
@@ -307,7 +313,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 7116.dp
+                audioVolumeUp = 250.dp,
+                lineHeightForAudAndLect = 40.sp
             )
 
             ScreenType.SMALL_TABLET -> AdaptiveDimensions(
@@ -357,7 +364,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 26.dp
+                audioVolumeUp = 250.dp,
+                lineHeightForAudAndLect = 45.sp
 
             )
 
@@ -408,7 +416,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 29.dp
+                audioVolumeUp = 250.dp,
+                lineHeightForAudAndLect = 55.sp
 
             )
 
@@ -459,7 +468,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 vocabularioPadingH = 12.dp,
 
                 // Для экрана Audio
-                audioVolumeUp = 33.dp
+                audioVolumeUp = 500.dp,
+                lineHeightForAudAndLect = 60.sp
 
             )
         }

@@ -1,14 +1,14 @@
 package com.example.nivelver20.ui.screens.audio
 
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
-import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,6 +37,18 @@ fun AudioScreen(
 ) {
     val dimensions = rememberAdaptiveDimensions()
     val uiState by viewModel.uiState.collectAsState()
+
+    // Анимация для иконки звука
+    val infiniteTransition = rememberInfiniteTransition(label = "audio")
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.3f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "scale"
+    )
 
     Box(
         modifier = Modifier
@@ -107,7 +119,7 @@ fun AudioScreen(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Spacer(modifier = Modifier.height(dimensions.vocabularioPadingH))
+                Spacer(modifier = Modifier.height(dimensions.vocabularioPadding))
 
                 // Заголовок AUDIO
                 Text(
@@ -119,7 +131,7 @@ fun AudioScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(dimensions.vocabularioPadingH))
+                Spacer(modifier = Modifier.height(dimensions.vocabularioPadding))
 
                 // АУДИО ПЛЕЕР
                 Box(
@@ -135,17 +147,36 @@ fun AudioScreen(
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxSize()
                     ) {
-                        // Иконка звука
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        // Иконка звука с анимацией
                         Icon(
-                            imageVector = Icons.AutoMirrored.Filled.VolumeUp,
-                            contentDescription = "Audio",
+                            imageVector = if (uiState.isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                            contentDescription = if (uiState.isPlaying) "Pause" else "Play",
                             modifier = Modifier
                                 .size(dimensions.audioVolumeUp)
+                                .clickable { viewModel.togglePlayPause() },
+                            tint = Color(0xFFf2edd0)
                         )
 
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        //Ползунок прогресса
+                        Slider(
+                            value = uiState.currentPosition,
+                            onValueChange = { viewModel.onSliderValueChange(it) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            colors = SliderDefaults.colors(
+                                thumbColor = Color(0xFFa3b944),
+                                activeTrackColor = Color(0xFFa3b944),
+                                inactiveTrackColor = Color(0xFFf2edd0).copy(alpha = 0.3f)
+                            )
+                        )
                     }
                 }
 
@@ -153,11 +184,12 @@ fun AudioScreen(
 
                 // ВОПРОС
                 Text(
-                    text = uiState.questionLabel,
-                    fontSize = dimensions.vocabularioTitleFontSize.sp,
+                    text = uiState.question,
+                    fontSize = dimensions.buttonFontSize.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFf2edd0),
                     textAlign = TextAlign.Center,
+                    lineHeight = dimensions.lineHeightForAudAndLect,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -178,7 +210,7 @@ fun AudioScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(dimensions.vocabularioPadingH))
+                Spacer(modifier = Modifier.height(dimensions.vocabularioPadding))
 
                 // Счетчики внизу
                 Row(
@@ -200,7 +232,7 @@ fun AudioScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(dimensions.vocabularioPadingH))
+                Spacer(modifier = Modifier.height(dimensions.vocabularioPadding))
             }
         }
 

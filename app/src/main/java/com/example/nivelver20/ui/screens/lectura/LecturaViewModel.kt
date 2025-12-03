@@ -11,7 +11,6 @@ data class LecturaUiState(
     val nivel: String = "A1",
     val userName: String = "NOMBRE",
     val title: String = "LECTURA",
-    val questionLabel: String = "Вопрос",
     val text: String = "Здесь будет текст для чтения на испанском языке. Студент должен прочитать этот текст и ответить на вопросы ниже.¿Qué es lo que hace verdaderamente valiosa a una persona?\n" +
             "• ¿Por qué crees que algunas personas les dan más importancia a aspectos como el color de la piel, el dinero o la apariencia física que a los valores y a\n" +
             "la forma de ser?¿Qué es lo que hace verdaderamente valiosa a una persona?\n" +

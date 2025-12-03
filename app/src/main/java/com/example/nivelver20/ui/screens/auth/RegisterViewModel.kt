@@ -30,4 +30,13 @@ class RegisterViewModel : ViewModel() {
     fun onPasswordChange(newPassword: String) {
         _uiState.update { it.copy(password = newPassword) }
     }
+
+    fun registerUser() {
+        viewModelScope.launch {
+            repo.register(
+                username = uiState.value.nameUn,
+                password = uiState.value.password
+            )
+        }
+    }
 }

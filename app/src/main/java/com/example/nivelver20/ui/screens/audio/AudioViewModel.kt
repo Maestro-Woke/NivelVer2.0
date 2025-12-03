@@ -12,8 +12,7 @@ data class AudioUiState(
     val nivel: String = "A1",
     val userName: String = "NOMBRE",
     val title: String = "AUDIO",
-    val questionLabel: String = "Вопрос",
-    val question: String = "¿Qué escuchaste en el audio?",
+    val question: String = "¿Qué escuchaste en el audio? ¿Qué escuchaste en el audio? ¿Qué escuchaste en el audio?",
     val answers: List<String> = listOf(
         "Primera respuesta posible",
         "Segunda respuesta posible",
@@ -21,6 +20,7 @@ data class AudioUiState(
     ),
     val selectedAnswer: Int? = null,
     val isPlaying: Boolean = false,
+    val currentPosition: Float = 0f,
     val correctCount: Int = 25,
     val incorrectCount: Int = 25,
     val testButton: String = "TEST",
@@ -38,6 +38,11 @@ class AudioViewModel : ViewModel() {
     fun togglePlayPause() {
         _uiState.update { it.copy(isPlaying = !it.isPlaying) }
         // Здесь будет логика воспроизведения аудио
+    }
+
+    fun onSliderValueChange(value: Float) {
+        _uiState.update { it.copy(currentPosition = value) }
+        // Здесь будет логика перемотки аудио
     }
 
     fun incrementCorrect() {

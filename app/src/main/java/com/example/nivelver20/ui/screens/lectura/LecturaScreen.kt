@@ -147,11 +147,12 @@ fun LecturaScreen(
 
                     // ВОПРОС
                     Text(
-                        text = uiState.questionLabel,
-                        fontSize = dimensions.vocabularioTitleFontSize.sp,
+                        text = uiState.question,
+                        fontSize = dimensions.vocabularioWordFontSize.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFf2edd0),
                         textAlign = TextAlign.Center,
+                        lineHeight = dimensions.lineHeightForAudAndLect,
                         modifier = Modifier.fillMaxWidth()
                     )
 
