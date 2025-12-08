@@ -22,6 +22,9 @@ data class AdaptiveDimensions(
     val verticalPadding: Dp,
     val spaceBetweenButtons: Dp,
 
+    // Ошибки
+   // val errorMessageView: Dp,
+
     // Размеры кнопок
     val buttonHeight: Dp,
     val buttonCornerRadius: Dp,
@@ -72,6 +75,8 @@ data class AdaptiveDimensions(
     // Для экрана Audio
     val audioVolumeUp: Dp,
     val lineHeightForAudAndLect: TextUnit
+
+
 )
 
 enum class ScreenType {
@@ -159,7 +164,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
 
                 // Для экрана Audio
                 audioVolumeUp = 50.dp,
-                lineHeightForAudAndLect = 25.sp
+                lineHeightForAudAndLect = 25.sp,
+
+                // Ошибки
 
             )
 
@@ -211,7 +218,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
 
                 // Для экрана Audio
                 audioVolumeUp = 90.dp,
-                lineHeightForAudAndLect = 30.sp
+                lineHeightForAudAndLect = 30.sp,
+
+                // Ошибки
 
             )
 
@@ -264,6 +273,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 // Для экрана Audio
                 audioVolumeUp = 150.dp,
                 lineHeightForAudAndLect = 35.sp
+
+                // Ошибки
             )
 
             ScreenType.XLARGE_PHONE -> AdaptiveDimensions(
@@ -367,6 +378,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 audioVolumeUp = 250.dp,
                 lineHeightForAudAndLect = 45.sp
 
+                // Ошибки
+
             )
 
             ScreenType.MEDIUM_TABLET -> AdaptiveDimensions(
@@ -419,6 +432,8 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
                 audioVolumeUp = 250.dp,
                 lineHeightForAudAndLect = 55.sp
 
+                // Ошибки
+
             )
 
             ScreenType.LARGE_TABLET -> AdaptiveDimensions(
@@ -469,7 +484,9 @@ fun rememberAdaptiveDimensions(): AdaptiveDimensions {
 
                 // Для экрана Audio
                 audioVolumeUp = 500.dp,
-                lineHeightForAudAndLect = 60.sp
+                lineHeightForAudAndLect = 60.sp,
+
+                // Ошибки
 
             )
         }

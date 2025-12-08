@@ -148,13 +148,13 @@ fun RegisterScreen(
                 }
             }
 
-            // Кнопки REGISTRARSE и VOLVER
+            // Кнопки Guardar
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.loginSpaceBetweenButtons)
             ) {
-                // REGISTRARSE (в 2 раза меньше, стиль как TEST и PERFIL)
+                // GUARDAR
                 Box(
                     modifier = Modifier
                         .width(dimensions.loginButtonWidth)
@@ -170,7 +170,7 @@ fun RegisterScreen(
                         )
                 ) {
                     Button(
-                        onClick = { onRegisterSuccess() },
+                        onClick = { viewModel.registerUser(onSuccess = onRegisterSuccess) },
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(2.dp),
@@ -178,15 +178,37 @@ fun RegisterScreen(
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF003D5B)
                         ),
-                        contentPadding = PaddingValues(0.dp)
+                        contentPadding = PaddingValues(0.dp),
+                        enabled = !uiState.isLoading  //блокировка при загрузке
                     ) {
-                        Text(
-                            text = uiState.registerButton,
-                            fontSize = dimensions.bottomButtonFontSize.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFa3b944)
-                        )
+                        if (uiState.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                color = Color(0xFFa3b944)
+                            )
+                        } else {
+                            Text(
+                                text = uiState.registerButton,
+                                fontSize = dimensions.bottomButtonFontSize.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFa3b944)
+                            )
+                        }
                     }
+                }
+
+                //Показать ошибку
+                uiState.errorMessage?.let { error ->
+                    Text(
+                        text = error,
+                        color = Color.Red,
+                        fontSize = dimensions.vocabularioWordFontSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
                 }
 
                 // ENTRADA

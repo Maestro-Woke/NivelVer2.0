@@ -2,10 +2,43 @@ package com.example.nivelver20.data.local.realm
 
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
+import org.mongodb.kbson.ObjectId
 
-class User : RealmObject {
+class UserRealm : RealmObject {
     @PrimaryKey
-    var id: String = ""
+    var _id: ObjectId = ObjectId()  // Уникальный ID автоматически
     var username: String = ""
-    var password: String = ""
+    var password: String = ""  // пароль
+    var nivel: String = "A0"   // начальный уровень A0
+}
+
+// Модель слова для Vocabulario
+class WordRealm : RealmObject {
+    @PrimaryKey
+    var _id: ObjectId = ObjectId()
+    var spanish: String = ""
+    var russian: String = ""
+    var nivel: String = "A1"
+}
+
+// Модель текста для Lectura
+class LecturaRealm : RealmObject {
+    @PrimaryKey
+    var _id: ObjectId = ObjectId()
+    var text: String = ""
+    var question: String = ""
+    var answers: String = "" // JSON string со списком ответов
+    var correctAnswer: Int = 0
+    var nivel: String = "A1"
+}
+
+// Модель аудио для Audio
+class AudioRealm : RealmObject {
+    @PrimaryKey
+    var _id: ObjectId = ObjectId()
+    var audioPath: String = ""
+    var question: String = ""
+    var answers: String = "" // JSON string со списком ответов
+    var correctAnswer: Int = 0
+    var nivel: String = "A1"
 }
