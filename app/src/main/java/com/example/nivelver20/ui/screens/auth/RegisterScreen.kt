@@ -170,7 +170,7 @@ fun RegisterScreen(
                         )
                 ) {
                     Button(
-                        onClick = { viewModel.registerUser(onSuccess = onRegisterSuccess) },
+                        onClick = { viewModel.registerUser() },
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(2.dp),
@@ -197,12 +197,26 @@ fun RegisterScreen(
                     }
                 }
 
-                //Показать ошибку
+                // Показать ошибку
                 uiState.errorMessage?.let { error ->
                     Text(
                         text = error,
-                        color = Color.Red,
-                        fontSize = dimensions.vocabularioWordFontSize.sp,
+                        color = Color(0xFFC42D2C),
+                        fontSize = dimensions.loginLabelFontSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
+                }
+
+                // Показать успех - ВАЖНО!
+                uiState.successMessage?.let { success ->
+                    Text(
+                        text = success,
+                        color = Color(0xFF48C553),
+                        fontSize = dimensions.loginLabelFontSize.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier

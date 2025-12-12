@@ -221,14 +221,14 @@ fun AudioScreen(
                         text = uiState.incorrectCount.toString(),
                         fontSize = dimensions.vocabularioCounterFontSize.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFFF4444)
+                        color = Color(0xFFC42D2C)
                     )
 
                     Text(
                         text = uiState.correctCount.toString(),
                         fontSize = dimensions.vocabularioCounterFontSize.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF00FF00)
+                        color = Color(0xFF48C553)
                     )
                 }
 

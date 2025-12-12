@@ -1,8 +1,10 @@
 package com.example.nivelver20.ui.screens.auth
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nivelver20.data.repository.RealmRepository
+import com.example.nivelver20.data.session.SessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,36 +22,38 @@ data class RegisterUiState(
     val nameUn: String = "",
     val password: String = "",
     val isLoading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val successMessage: String? = null
 )
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(RegisterUiState())
     val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
     private val repository = RealmRepository()
+    private val sessionManager = SessionManager.getInstance(application)
 
     fun onNameChange(newName: String) {
-        _uiState.update { it.copy(nameUn = newName) }
+        _uiState.update { it.copy(nameUn = newName, errorMessage = null, successMessage = null) }
     }
 
     fun onPasswordChange(newPassword: String) {
-        _uiState.update { it.copy(password = newPassword) }
+        _uiState.update { it.copy(password = newPassword, errorMessage = null, successMessage = null) }
     }
 
-    fun registerUser(onSuccess: () -> Unit) {
+    fun registerUser() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update { it.copy(isLoading = true, errorMessage = null, successMessage = null) }
 
             try {
-                val username = _uiState.value.nameUn
+                val username = _uiState.value.nameUn.trim()
                 val password = _uiState.value.password
 
                 if (username.isBlank() || password.isBlank()) {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = "Заполните все поля"
+                            errorMessage = "Llene todos los campos"
                         )
                     }
                     return@launch
@@ -61,7 +65,7 @@ class RegisterViewModel : ViewModel() {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = "Пользователь уже существует"
+                            errorMessage = "Este usuario ya está registrado"
                         )
                     }
                     return@launch
@@ -70,14 +74,20 @@ class RegisterViewModel : ViewModel() {
                 // Создание нового пользователя
                 repository.createUser(username, password)
 
-                _uiState.update { it.copy(isLoading = false) }
-                onSuccess()
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        successMessage = "¡Registro exitoso! Ahora puedes iniciar sesión",
+                        nameUn = "",
+                        password = ""
+                    )
+                }
 
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = "Ошибка: ${e.message}"
+                        errorMessage = "Ha ocurrido un error: ${e.message}"
                     )
                 }
             }

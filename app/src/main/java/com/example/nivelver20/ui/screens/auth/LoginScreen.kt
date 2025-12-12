@@ -46,16 +46,17 @@ fun LoginScreen(
                         Color(0xFF02214a)
                     )
                 )
-            )
+            ),
+        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.espanol_logo),
-            contentDescription = "Background",
+            contentDescription = "Letter Ñ",
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 40.dp),
-            contentScale = ContentScale.Fit,
-            alpha = 0.1f
+                .fillMaxWidth(0.8f)
+                .fillMaxHeight(0.7f),
+            alpha = 0.15f,
+            contentScale = ContentScale.Fit
         )
 
         Column(
@@ -152,6 +153,7 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensions.loginSpaceBetweenButtons)
             ) {
+                // ENTRAR
                 Box(
                     modifier = Modifier
                         .width(dimensions.loginButtonWidth)
@@ -167,7 +169,7 @@ fun LoginScreen(
                         )
                 ) {
                     Button(
-                        onClick = { onLoginSuccess() },
+                        onClick = { viewModel.login(onSuccess = onLoginSuccess) },
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(2.dp),
@@ -175,20 +177,57 @@ fun LoginScreen(
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF003D5B)
                         ),
-                        contentPadding = PaddingValues(0.dp)
+                        contentPadding = PaddingValues(0.dp),
+                        enabled = !uiState.isLoading
                     ) {
-                        Text(
-                            text = uiState.loginButton,
-                            fontSize = dimensions.bottomButtonFontSize.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFa3b944)
-                        )
+                        if (uiState.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                color = Color(0xFFa3b944)
+                            )
+                        } else {
+                            Text(
+                                text = uiState.loginButton,
+                                fontSize = dimensions.bottomButtonFontSize.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFa3b944)
+                            )
+                        }
                     }
                 }
 
+                // Показать ошибку
+                uiState.errorMessage?.let { error ->
+                    Text(
+                        text = error,
+                        color = Color(0xFFC42D2C),
+                        fontSize = dimensions.loginLabelFontSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
+                }
+
+                // Показать успех
+                uiState.successMessage?.let { success ->
+                    Text(
+                        text = success,
+                        color = Color(0xFF48C553),
+                        fontSize = dimensions.loginLabelFontSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
+                }
+
+                // REGISTRO
                 Box(
                     modifier = Modifier
-                        .width(dimensions.loginButtonWidth )
+                        .width(dimensions.loginButtonWidth)
                         .height(dimensions.bottomButtonHeight)
                         .background(
                             brush = Brush.horizontalGradient(

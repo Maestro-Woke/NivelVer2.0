@@ -2,8 +2,11 @@ package com.example.nivelver20.ui.screens.perfil
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.nivelver20.R
+import com.example.nivelver20.data.session.SessionManager
 import com.example.nivelver20.ui.theme.rememberAdaptiveDimensions
 
 @Composable
@@ -32,10 +37,14 @@ fun PerfilScreen(
     onNavigateToLectura: () -> Unit = {},
     onNavigateToTest: () -> Unit = {},
     onNavigateToPerfil: () -> Unit = {},
+    onLogout: () -> Unit = {},
     viewModel: PerfilViewModel = viewModel()
 ) {
     val dimensions = rememberAdaptiveDimensions()
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+    val sessionManager = SessionManager.getInstance(context)
+    val currentUsername by sessionManager.currentUsername.collectAsState()
 
     Box(
         modifier = Modifier
@@ -47,16 +56,17 @@ fun PerfilScreen(
                         Color(0xFF02214a)
                     )
                 )
-            )
+            ),
+        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.espanol_logo),
-            contentDescription = "Background",
+            contentDescription = "Letter Ñ",
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 40.dp),
-            contentScale = ContentScale.Fit,
-            alpha = 0.1f
+                .fillMaxWidth(0.8f)
+                .fillMaxHeight(0.7f),
+            alpha = 0.15f,
+            contentScale = ContentScale.Fit
         )
 
         Column(
@@ -71,13 +81,32 @@ fun PerfilScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Иконка выхода в правом верхнем углу
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                    contentDescription = "Cerrar sesión",
+                    tint = Color(0xFFa3b944),
+                    modifier = Modifier
+                        .size(dimensions.loginTitleFontSize.sp.value.dp)
+                        .clickable {
+                            sessionManager.logout()
+                            onLogout()
+                        }
+                )
+            }
+
             // Заголовок
             Text(
                 text = uiState.title,
                 fontSize = dimensions.loginTitleFontSize.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFa3b944),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
 
             // NOMBRE + NIVEL
@@ -87,7 +116,7 @@ fun PerfilScreen(
                 verticalArrangement = Arrangement.spacedBy(dimensions.loginSpaceBetweenInputs)
             ) {
                 Text(
-                    text = uiState.nameLabel,
+                    text = currentUsername ?: "Usuario",
                     fontSize = dimensions.loginLabelFontSize.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFa3b944),

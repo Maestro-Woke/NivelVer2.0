@@ -312,14 +312,14 @@ fun VocabularioScreen(
                         text = uiState.incorrectCount.toString(),
                         fontSize = dimensions.vocabularioCounterFontSize.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFd61212)
+                        color = Color(0xFFC42D2C)
                     )
 
                     Text(
                         text = uiState.correctCount.toString(),
                         fontSize = dimensions.vocabularioCounterFontSize.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF50ff65)
+                        color = Color(0xFF48C553)
                     )
                 }
                 Spacer(modifier = Modifier.height(dimensions.vocabularioPadingH))

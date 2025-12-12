@@ -1,6 +1,9 @@
 package com.example.nivelver20.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,10 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.nivelver20.data.session.SessionManager
 import com.example.nivelver20.ui.screens.audio.AudioScreen
 import com.example.nivelver20.ui.screens.auth.LoginScreen
 import com.example.nivelver20.ui.screens.auth.RegisterScreen
@@ -26,11 +31,14 @@ import com.example.nivelver20.ui.screens.lectura.LecturaScreen
 import com.example.nivelver20.ui.screens.perfil.PerfilScreen
 import com.example.nivelver20.ui.screens.vocabulario.VocabularioScreen
 
-// Главная навигация приложения
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController()
 ) {
+    val context = LocalContext.current
+    val sessionManager = SessionManager.getInstance(context)
+    val isLoggedIn by sessionManager.isLoggedIn.collectAsState()
+
     NavHost(
         navController = navController,
         startDestination = Routes.Main.route
@@ -51,10 +59,18 @@ fun AppNavigation(
                     navController.navigate(Routes.NivelSelection.route + "?destination=lectura")
                 },
                 onNavigateToTest = {
-                    navController.navigate(Routes.Perfil.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 },
                 onNavigateToPerfil = {
-                    navController.navigate(Routes.Login.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
@@ -75,79 +91,114 @@ fun AppNavigation(
                     navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    navController.popBackStack(Routes.Main.route, false)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
 
-        // Экран авторизации
+        // Экран авторизации - редирект если уже авторизован
         composable(Routes.Login.route) {
-            LoginScreen(
-                onLoginSuccess = {
-                    navController.navigate(Routes.Main.route) {
+            LaunchedEffect(isLoggedIn) {
+                if (isLoggedIn) {
+                    navController.navigate(Routes.Perfil.route) {
                         popUpTo(Routes.Login.route) { inclusive = true }
                     }
-                },
-                onNavigateToRegister = {
-                    navController.navigate(Routes.Register.route)
-                },
-                onNavigateToTest = {
-                    navController.popBackStack(Routes.Main.route, false)
-                },
-                onNavigateToPerfil = {
-                    navController.navigate(Routes.Perfil.route)
                 }
-            )
+            }
+
+            if (!isLoggedIn) {
+                LoginScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Routes.Perfil.route) {
+                            popUpTo(Routes.Login.route) { inclusive = true }
+                        }
+                    },
+                    onNavigateToRegister = {
+                        navController.navigate(Routes.Register.route)
+                    },
+                    onNavigateToTest = {
+                        navController.navigate(Routes.Main.route) {
+                            popUpTo(Routes.Main.route) { inclusive = true }
+                        }
+                    },
+                    onNavigateToPerfil = {
+                        // Уже на экране логина, ничего не делаем
+                    }
+                )
+            }
         }
 
         // Экран регистрации
         composable(Routes.Register.route) {
             RegisterScreen(
                 onRegisterSuccess = {
-                    navController.navigate(Routes.Main.route) {
-                        popUpTo(Routes.Register.route) { inclusive = true }
-                    }
+                    // Больше не используется, оставляем пустым
                 },
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onNavigateToTest = {
-                    navController.popBackStack(Routes.Main.route, false)
+                    navController.navigate(Routes.Main.route) {
+                        popUpTo(Routes.Main.route) { inclusive = true }
+                    }
                 },
                 onNavigateToPerfil = {
-                    navController.navigate(Routes.Perfil.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
 
-        // Экран профиля
+        // Экран профиля - только для авторизованных
         composable(Routes.Perfil.route) {
-            PerfilScreen(
-                onNavigateToNivel = {
-                    navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
-                },
-                onNavigateToFlujo = {
-                    // Пока пусто
-                },
-                onNavigateToVocabulario = {
-                    navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
-                },
-                onNavigateToGrammatica = {
-                    navController.navigate(Routes.NivelSelection.route + "?destination=grammatica")
-                },
-                onNavigateToAudio = {
-                    navController.navigate(Routes.NivelSelection.route + "?destination=audio")
-                },
-                onNavigateToLectura = {
-                    navController.navigate(Routes.NivelSelection.route + "?destination=lectura")
-                },
-                onNavigateToTest = {
-                    navController.popBackStack(Routes.Main.route, false)
-                },
-                onNavigateToPerfil = {
-                    // Уже на профиле
+            LaunchedEffect(isLoggedIn) {
+                if (!isLoggedIn) {
+                    navController.navigate(Routes.Login.route) {
+                        popUpTo(Routes.Perfil.route) { inclusive = true }
+                    }
                 }
-            )
+            }
+
+            if (isLoggedIn) {
+                PerfilScreen(
+                    onNavigateToNivel = {
+                        navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
+                    },
+                    onNavigateToFlujo = {
+                        // Пока пусто
+                    },
+                    onNavigateToVocabulario = {
+                        navController.navigate(Routes.NivelSelection.route + "?destination=vocabulario")
+                    },
+                    onNavigateToGrammatica = {
+                        navController.navigate(Routes.NivelSelection.route + "?destination=grammatica")
+                    },
+                    onNavigateToAudio = {
+                        navController.navigate(Routes.NivelSelection.route + "?destination=audio")
+                    },
+                    onNavigateToLectura = {
+                        navController.navigate(Routes.NivelSelection.route + "?destination=lectura")
+                    },
+                    onNavigateToTest = {
+                        navController.popBackStack(Routes.Main.route, false)
+                    },
+                    onNavigateToPerfil = {
+                        // Уже на профиле
+                    },
+                    onLogout = {
+                        navController.navigate(Routes.Login.route) {
+                            popUpTo(0) { inclusive = true }
+                        }
+                    }
+                )
+            }
         }
 
         composable(Routes.Vocabulario.route + "/{nivelId}") { backStackEntry ->
@@ -158,7 +209,11 @@ fun AppNavigation(
                     navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    navController.navigate(Routes.Perfil.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
@@ -172,7 +227,11 @@ fun AppNavigation(
                     navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    navController.navigate(Routes.Perfil.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
@@ -186,7 +245,11 @@ fun AppNavigation(
                     navController.popBackStack(Routes.Main.route, false)
                 },
                 onNavigateToPerfil = {
-                    navController.navigate(Routes.Perfil.route)
+                    if (isLoggedIn) {
+                        navController.navigate(Routes.Perfil.route)
+                    } else {
+                        navController.navigate(Routes.Login.route)
+                    }
                 }
             )
         }
@@ -204,7 +267,6 @@ fun AppNavigation(
     }
 }
 
-// Временный экран-заглушка
 @Composable
 private fun PlaceholderScreen(
     text: String,
